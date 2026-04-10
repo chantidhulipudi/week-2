@@ -1,0 +1,188 @@
+1)write a c++ program to swap two numbers by using call by value
+#include <iostream>
+
+// Function definition using call by value
+void swapByValue(int x, int y) {
+    int temp = x;
+    x = y;
+    y = temp;
+    // The changes to x and y are local to this function
+    std::cout << "Inside function (by value) - After swap: a = " << x << ", b = " << y << std::endl;
+}
+
+int main() {
+    int a = 5, b = 10;
+
+    std::cout << "Before swap: a = " << a << ", b = " << b << std::endl;
+
+    // Passing copies of a and b to the function
+    swapByValue(a, b);
+
+    // The original variables remain unchanged
+    std::cout << "Outside function (in main) - After swap: a = " << a << ", b = " << b << std::endl;
+
+    return 0;
+}
+
+2}write a c++ code to read n numbers of elements in 1d array and display them
+#include <iostream>
+#include <vector> // Using vector is a modern C++ approach for dynamic arrays
+
+int main() {
+    int n;
+
+    // 1. Prompt the user to enter the number of elements
+    std::cout << "Enter the number of elements (n): ";
+    std::cin >> n;
+
+    // Check for invalid input
+    if (n <= 0) {
+        std::cout << "Please enter a positive number for the size." << std::endl;
+        return 1;
+    }
+
+    // 2. Declare a vector (dynamically resizable array) of size 'n'
+    // This is generally preferred over C-style variable-length arrays
+    std::vector<int> arr(n);
+
+    // 3. Read 'n' numbers from the user and store them in the array
+    std::cout << "Enter " << n << " integers:" << std::endl;
+    for (int i = 0; i < n; ++i) {
+        std::cin >> arr[i];
+    }
+
+    // 4. Display the elements of the array
+    std::cout << "The elements in the array are: ";
+    for (int i = 0; i < n; ++i) {
+        std::cout << arr[i] << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+3} write c++ program to read n no of elements in 1d array using pointers
+#include <iostream>
+
+int main() {
+    int n;
+
+    // Ask the user for the number of elements
+    std::cout << "Enter the number of elements (n): ";
+    std::cin >> n;
+
+    // Dynamically allocate memory for n integers using 'new'
+    int* arr = new int[n]; 
+
+    std::cout << "Enter " << n << " elements:" << std::endl;
+    
+    // Use a pointer to read elements into the array
+    for (int i = 0; i < n; ++i) {
+        // The expression *(arr + i) accesses the element at index i using pointer arithmetic
+        std::cout << "Element " << i + 1 << ": ";
+        std::cin >> *(arr + i); 
+    }
+
+    std::cout << "\nYou entered (displayed using pointers):" << std::endl;
+
+    // Use a pointer to display elements from the array
+    for (int i = 0; i < n; ++i) {
+        std::cout << *(arr + i) << std::endl;
+    }
+    
+    // Deallocate the dynamically allocated memory to prevent memory leaks
+    delete[] arr;
+
+    return 0;
+    }
+    
+    4)write c++ program to read n no of elements in 1d array using dma
+
+
+    #include <iostream>
+#include <new> // Required for nothrow if desired, otherwise std::bad_alloc is default
+
+int main() {
+    int n; // Variable to store the number of elements
+    int* arr; // Pointer to hold the base address of the dynamically allocated array
+
+    // 1. Prompt the user for the number of elements
+    std::cout << "Enter the number of elements (n): ";
+    std::cin >> n;
+
+    if (n <= 0) {
+        std::cout << "Invalid number of elements. Exiting program." << std::endl;
+        return 1;
+    }
+
+    // 2. Dynamically allocate memory for n integers using the new operator
+    arr = new (std::nothrow) int[n]; // Using nothrow to handle allocation failure gracefully
+
+    // Check if memory allocation was successful
+    if (arr == nullptr) {
+        std::cout << "Error: memory could not be allocated" << std::endl;
+        return 1; // Exit if allocation fails
+    }
+
+    // 3. Read elements from the user
+    std::cout << "Enter " << n << " elements:" << std::endl;
+    for (int i = 0; i < n; ++i) {
+        std::cout << "Element " << i + 1 << ": ";
+        std::cin >> arr[i]; // Accessing elements using array syntax with the pointer
+        // Alternatively, you could use pointer arithmetic: cin >> *(arr + i);
+    }
+
+    // 4. Display the elements
+    std::cout << "\nYou have entered the following elements: ";
+    for (int i = 0; i < n; ++i) {
+        std::cout << arr[i] << " ";
+    }
+    std::cout << std::endl;
+
+    // 5. Deallocate the dynamically allocated memory using the delete[] operator
+    delete[] arr;
+    arr = nullptr; // Good practice to set pointer to nullptr after deallocation to avoid dangling pointers
+
+    return 0;
+}
+
+5)write a c++ program to implement function overloading
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// Function to add two integers
+int add(int a, int b) {
+    return a + b;
+}
+
+// Function to add two floating-point numbers
+double add(double a, double b) {
+    return a + b;
+}
+
+// Function to concatenate two strings
+string add(string a, string b) {
+    return a + b;
+}
+
+// Function to add three integers (different number of parameters)
+int add(int a, int b, int c) {
+    return a + b + c;
+}
+
+int main() {
+    // Calls add(int, int)
+    cout << "Sum of 10 and 20: " << add(10, 20) << endl;
+
+    // Calls add(double, double)
+    cout << "Sum of 5.5 and 6.2: " << add(5.5, 6.2) << endl;
+
+    // Calls add(string, string)
+    cout << "Concatenated string: " << add("Hello, ", "World!") << endl;
+
+    // Calls add(int, int, int)
+    cout << "Sum of 10, 20, and 30: " << add(10, 20, 30) << endl;
+
+    return 0;
+}
